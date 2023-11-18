@@ -5,22 +5,37 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import blueBackgroundImage from './../assets/images/Bgcolor.png';
-import anotherImage from './../assets/images/quantumLogo.jpg'; // the logo
+import quantumLogo from './../assets/images/quantumLogo.jpg';
+import homePageBG from './../assets/images/BigBg.png';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 600,
+    maxWidth: '100%',
     margin: 'auto',
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(1),
     background: `url(${blueBackgroundImage})`,
     backgroundSize: 'cover',
   },
-  title: {
+  /**title: {
     padding: theme.spacing(3, 2.5, 2),
-    color: theme.palette.primary.contrastText,
-  },
+    color: '#fff',
+    textAlign: 'center',
+  },*/
   media: {
-    minHeight: 400,
+    width: 1080,
+    height: 600,
+    margin: '0 auto',
+    //marginTop: 10,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    margin: '0 auto',
+    display: 'block',
+  },
+  content: {
+    color: '#fff',
+    textAlign: 'center',
   },
 }));
 
@@ -29,15 +44,13 @@ export default function RPSHome() {
 
   return (
     <Card className={classes.card}>
-      <Typography variant="h6" className={classes.title} style={{ textAlign: 'center' }}>
-        RPSHome Tournament!
-      </Typography>
+      
 
-      <CardMedia className={classes.media} image={anotherImage} title="Rock Paper Scissors Tournament" />
+      <CardMedia className={classes.media} image={homePageBG} title="Rock Paper Scissors Welcome!" />
 
       <CardContent>
-        <Typography variant="body2" component="p" style={{ color: '#fff' }}>
-          Welcome to the Rock Paper SCissors website
+        <Typography variant="body2" component="p" className={classes.content}>
+          Experience the excitement of Rock Paper Scissors in our tournament. Compete, have fun, and emerge victorious!
         </Typography>
       </CardContent>
     </Card>

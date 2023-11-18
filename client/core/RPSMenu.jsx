@@ -43,6 +43,7 @@ export default function RPSMenu() {
             <HomeIcon />
           </IconButton>
         </Link>
+        <div style={{ marginLeft: 'auto', marginRight: 0 }}>
         <Link to="/users">
           <Button style={isActive(location, '/users')}>Users</Button>
         </Link>
@@ -58,6 +59,7 @@ export default function RPSMenu() {
         <Link to="/rank">
           <Button style={isActive(location, '/rank')}>Rank</Button>
         </Link>
+        </div>
         {auth.isAuthenticated() && (
           <span>
             <Link to={`/user/${auth.isAuthenticated().user._id}`}>
