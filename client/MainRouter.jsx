@@ -1,6 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./core/Home";
+//Added the home for Our Project:
+import RPSHome from "./core/RPSHome";
+//Added the menu for OUR project:
+import RPSMenu from "./core/RPSMenu"
 import Users from "./user/Users.jsx";
 import Signup from "./user/Signup.jsx";
 import Signin from "./lib/Signin.jsx";
@@ -13,10 +17,10 @@ import AddItem from "./item/AddItem.jsx";
 function MainRouter() {
   return (
     <div>
-      <Menu />
+      <RPSMenu />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<RPSHome />} />
         <Route path="/users" element={<Users />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />

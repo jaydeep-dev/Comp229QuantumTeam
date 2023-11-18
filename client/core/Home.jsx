@@ -52,7 +52,7 @@ const classes = useStyles()
 return (
 <Card className={classes.card}>
    
-  <Typography variant="h6" className={classes.title}>Home Page</Typography>
+  <Typography variant="h6" className={classes.title}>This is a Change</Typography>
 
 
 <CardMedia className={classes.media}
