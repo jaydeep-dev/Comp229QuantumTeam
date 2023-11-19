@@ -8,6 +8,8 @@ import helmet from "helmet";
 import Template from "./../template.js";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import matchRoutes from './routes/match.routes.js';
+import rankRoutes from './routes/rank.route.js';
 import path from "path";
 
 const app = express();
@@ -17,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./server/dist/app"));
 app.use("/", userRoutes);
 app.use("/", authRoutes);
+app.use("/", matchRoutes);
+app.use("/", rankRoutes);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
