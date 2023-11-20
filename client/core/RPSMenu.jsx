@@ -47,12 +47,18 @@ export default function RPSMenu() {
         <Link to="/users">
           <Button style={isActive(location, '/users')}>Users</Button>
         </Link>
-        <Link to="/signup">
-          <Button style={isActive(location, '/signup')}>Sign up</Button>
-        </Link>
-        <Link to="/signin">
-          <Button style={isActive(location, '/signin')}>Sign In</Button>
-        </Link>
+        {
+        !auth.isAuthenticated() && (<span>
+          <Link to="/signup">
+            <Button style={isActive(location, "/signup")}>Sign up
+            </Button>
+          </Link>
+          <Link to="/signin">
+            <Button style={isActive(location, "/signin")}>Sign In
+            </Button>
+          </Link>
+        </span>)
+      }
         <Link to="/match">
           <Button style={isActive(location, '/match')}>Match</Button>
         </Link>

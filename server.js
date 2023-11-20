@@ -8,7 +8,7 @@ mongoose.connect(config.mongoUri, {
 })
 
   .then(() => {
-    console.log("Connected to the database!");
+    console.log("Connected to the database! Url => " + config.mongoUri);
   })
 
 mongoose.connection.on('error', () => {
