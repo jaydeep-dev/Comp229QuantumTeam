@@ -59,7 +59,7 @@ export default function RPSMenu() {
           </Link>
         </span>)
       }
-        <Link to="/match">
+        <Link to="/addMatch">
           <Button style={isActive(location, '/match')}>Match</Button>
         </Link>
         <Link to="/rank">

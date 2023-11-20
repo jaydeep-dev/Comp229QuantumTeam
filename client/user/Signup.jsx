@@ -12,6 +12,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -49,6 +53,7 @@ export default function Signup() {
     name: "",
     password: "",
     email: "",
+    rps: "",
   });
 
   const [open, setOpen] = useState(false);
@@ -66,6 +71,7 @@ export default function Signup() {
       name: values.name || undefined,
       email: values.email || undefined,
       password: values.password || undefined,
+      rps: values.rps || undefined,
     };
 
     create(user).then((data) => {
@@ -106,6 +112,21 @@ export default function Signup() {
             onChange={handleChange("email")}
             margin="normal"
           />
+          <FormControl className={classes.textField}>
+            <InputLabel htmlFor="rps">RPS</InputLabel>
+            <Select
+              value={values.rps}
+              onChange={handleChange("rps")}
+              inputProps={{
+                name: "rps",
+                id: "rps",
+              }}
+            >
+              <MenuItem value={"Rock"}>Rock</MenuItem>
+              <MenuItem value={"Paper"}>Paper</MenuItem>
+              <MenuItem value={"Scissors"}>Scissors</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             id="password"
             label="Password"

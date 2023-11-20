@@ -7,16 +7,23 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import blueBackgroundImage from './../assets/images/Bgcolor.png';
 import quantumLogo from './../assets/images/quantumLogo.jpg';
-import homePageBG from './../assets/images/BigBg.png';
+import homePageBG from './../assets/images/MidBg.png';
+import userCIcon from './../assets/images/usrCreation.png';
+import matchIcon from './../assets/images/matchIcon.png';
+import rankIcon from './../assets/images/rankIcon.png';
 import { Link } from 'react-router-dom';
+import Square from './../src/components/Square';
+import GameInstructions from './../src/components/Instructions';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: '100%',
+    maxWidth: 1300,
     margin: 'auto',
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
     background: `url(${blueBackgroundImage})`,
     backgroundSize: 'cover',
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
   },
   /**title: {
     padding: theme.spacing(3, 2.5, 2),
@@ -24,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },*/
   media: {
-    width: 1080,
+    width: 550,
     height: 600,
-    margin: '0 auto',
-    //marginTop: 10,
+    margin: theme.spacing(3, 3, 3),
+    marginTop: 0,
   },
   logo: {
     width: 100,
@@ -38,9 +45,15 @@ const useStyles = makeStyles((theme) => ({
   content: {
     color: '#fff',
     textAlign: 'center',
+    margin: theme.spacing(6, 3, 3),
   },
   button: {
-    margin: theme.spacing(3, 20, 3),
+    margin: theme.spacing(3, 3, 3),
+  },
+  boxes: {
+    display: 'flex',
+    flexDirection: 'row',
+    margin: theme.spacing(3, 3, 3),
   },
 }));
 
@@ -49,42 +62,69 @@ export default function RPSHome() {
 
   return (
     <Card className={classes.card}>
-      
+      <Typography variant="body2" component="p" className={classes.boxes}>
+        <Square>
+          <CardMedia className={classes.media} image={homePageBG} title="Rock Paper Scissors Welcome!" />
+        </Square>
+        <Typography variant="body2" component="p" className={classes.content}>
+          <Square />
+          <GameInstructions />
+          <Square style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', }} />
 
-      <CardMedia className={classes.media} image={homePageBG} title="Rock Paper Scissors Welcome!" />
+          <Button
+            component={Link}
+            to="/signup"
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          ><img src={userCIcon} style={{ width: 100, margin: 6, }} />
+            <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
+              Start here: <br />Create User</p>
+          </Button>
+
+        </Typography>
+      </Typography>
 
       <CardContent>
         <Typography variant="body2" component="p" className={classes.content}>
           Experience the excitement of Rock Paper Scissors in our tournament. Compete, have fun, and emerge victorious!
         </Typography>
-        <Button
-          component={Link}
-          to="/signup"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Create User
-        </Button>
-        <Button
-          component={Link}
-          to="/addmatch"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Create Match
-        </Button>
-        <Button
-          component={Link}
-          to="/rank"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          See Ranking
-        </Button>
+        <Square style={{background: `url(${blueBackgroundImage})`,}}>
+          <Button
+            component={Link}
+            to="/signup"
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          ><img src={userCIcon} style={{ width: 100, margin: 6, }} />
+            <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
+              Start here: <br />Create User</p>
+          </Button>
+          <Button
+            component={Link}
+            to="/addMatch"
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          ><img src={matchIcon} style={{ width: 100, margin: 6, }} />
+            <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
+              Create a match!</p>
+          </Button>
+          <Button
+            component={Link}
+            to="/rank"
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          ><img src={rankIcon} style={{ width: 100, margin: 6, }} />
+            <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
+              See the Rank</p>
+          </Button>
+        </Square>
+
       </CardContent>
+
     </Card>
+
   );
 }
