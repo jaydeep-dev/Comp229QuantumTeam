@@ -102,7 +102,7 @@ export default function RPSHome() {
           </Button>
           <Button
             component={Link}
-            to="/match"
+            to="/addMatch"
             variant="contained"
             color="primary"
             className={classes.button}
