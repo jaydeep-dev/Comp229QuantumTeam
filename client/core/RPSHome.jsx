@@ -14,6 +14,7 @@ import rankIcon from './../assets/images/rankIcon.png';
 import { Link } from 'react-router-dom';
 import Square from './../src/components/Square';
 import GameInstructions from './../src/components/Instructions';
+import UserList from './../src/components/UserList';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -81,7 +82,7 @@ export default function RPSHome() {
             <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
               Start here: <br />Create User</p>
           </Button>
-
+          <UserList />
         </Typography>
       </Typography>
 
