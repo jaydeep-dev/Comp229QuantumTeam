@@ -236,9 +236,11 @@ const AddMatch = () => {
                 >
                     Create Match
                 </Button>
+                <MatchList />
             </CardContent>
             
         </Card>
+        
     );
 };
 

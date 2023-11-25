@@ -16,7 +16,7 @@ const createMatch = async (match) => {
   
   const listMatches = async (signal) => {
     try {
-      let response = await fetch("/api/matches/", {
+      let response = await fetch("/api/match/", {
         method: "GET",
         signal: signal,
       });
