@@ -16,6 +16,7 @@ import Square from './../src/components/Square';
 import GameInstructions from './../src/components/Instructions';
 import UserList from './../src/components/UserList';
 import MatchList from '../src/components/MatchList';
+import auth from '../lib/auth-helper';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -59,8 +60,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function RPSHome() {
   const classes = useStyles();
+
+  // I'm just trying to deactivate the button to create match section
+  // if the user is not logged in [..Jorge]
+  const buttonService = (isAuthenticated) => {
+    if (!isAuthenticated) {
+      alert('You must be logged in to create a match.');
+    } else {
+      navigate('/addMatch');
+    }
+  };
 
   return (
     <Card className={classes.card}>
@@ -75,13 +88,13 @@ export default function RPSHome() {
 
           <Button
             component={Link}
-            to="/signup"
+            to={auth.isAuthenticated() ? "/addMatch" : "/signup"}
             variant="contained"
             color="primary"
             className={classes.button}
-          ><img src={userCIcon} style={{ width: 100, margin: 6, }} />
+          ><img src={auth.isAuthenticated() ? matchIcon : userCIcon} style={{ width: 100, margin: 6, }} />
             <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
-              Start here: <br />Create User</p>
+              Start here: <br />{auth.isAuthenticated() ? "create a match!" : "Create User"}</p>
           </Button>
         </Typography>
       </Typography>
@@ -90,23 +103,16 @@ export default function RPSHome() {
         <Typography variant="body2" component="p" className={classes.content}>
           Experience the excitement of Rock Paper Scissors in our tournament. Compete, have fun, and emerge victorious!
         </Typography>
-        <Square style={{background: `url(${blueBackgroundImage})`,}}>
+        <Square style={{ background: `url(${blueBackgroundImage})`, }}>
+          
           <Button
             component={Link}
-            to="/signup"
+            to={auth.isAuthenticated() ? "/addMatch" : "/"} // this function asks for auth.isAuthenticaded() if true [first link] if false [the other] [..Jorge]
             variant="contained"
             color="primary"
             className={classes.button}
-          ><img src={userCIcon} style={{ width: 100, margin: 6, }} />
-            <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
-              Start here: <br />Create User</p>
-          </Button>
-          <Button
-            component={Link}
-            to="/addMatch"
-            variant="contained"
-            color="primary"
-            className={classes.button}
+            onClick={() => buttonService(auth.isAuthenticated())}
+            //disabled={!auth.isAuthenticated()}
           ><img src={matchIcon} style={{ width: 100, margin: 6, }} />
             <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
               Create a match!</p>
@@ -122,12 +128,14 @@ export default function RPSHome() {
               See the Rank</p>
           </Button>
         </Square>
-        <Square style={{background: `url(${blueBackgroundImage})`, 
-        display: 'flex', 
-        flexDirection: 'column'}}>
+        <Square style={{
+          background: `url(${blueBackgroundImage})`,
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <UserList />
           <MatchList />
-          </Square>
+        </Square>
 
       </CardContent>
 

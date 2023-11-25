@@ -75,10 +75,21 @@ export default function RPSMenu() {
             <Link to={`/user/${auth.isAuthenticated().user._id}`}>
               <Button style={isActive(location, `/user/${auth.isAuthenticated().user._id}`)}>My Profile</Button>
             </Link>
+            <Link to={`/user/${auth.isAuthenticated().user._id}`}>
+              <Button style={isActive(location, `/user/${auth.isAuthenticated().user._id}`)}>{`Hello, ${loggedInUser.name}`}</Button>
+            </Link>
             <Link to="/addMatch">
               <Button style={isActive(location, '/match')}>Match</Button>
             </Link>
-            <Button color="inherit" onClick={() => auth.clearJWT(() => navigate('/'))}>
+            <Button color="inherit" onClick={() => auth.clearJWT(() => {
+              // Reload the page if the user is on the homepage
+              if (window.location.pathname === '/') {
+                window.location.reload();
+              } else {
+                // Navigate to the home page if the user is on another page
+                navigate('/');
+              }
+            })}>
               Sign out
             </Button>
           </span>
