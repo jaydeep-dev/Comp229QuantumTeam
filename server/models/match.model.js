@@ -1,9 +1,19 @@
 import mongoose from "mongoose";
 
+const PlayerSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  selectedIcon: {
+    type: String,
+    enum: ["rock", "paper", "scissors"],
+    required: true,
+  },
+});
+
 const MatchSchema = new mongoose.Schema({
-  players: [{ 
-    type: String, 
-    required: true }],
+  players: [PlayerSchema],
   result: { 
     type: String, 
     required: true },
