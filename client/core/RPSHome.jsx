@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import blueBackgroundImage from './../assets/images/Bgcolor.png';
 import quantumLogo from './../assets/images/quantumLogo.jpg';
-import homePageBG from './../assets/images/MidBg.png';
+import homePageBG from './../assets/images/MidBG.png';
 import userCIcon from './../assets/images/usrCreation.png';
 import matchIcon from './../assets/images/matchIcon.png';
 import rankIcon from './../assets/images/rankIcon.png';
