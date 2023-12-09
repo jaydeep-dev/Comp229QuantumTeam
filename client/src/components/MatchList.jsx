@@ -66,7 +66,7 @@ const MatchList = () => {
           <ListItem key={match._id}>
             <ListItemText
               primary={constructMatchMessage(match)}
-              secondary={`Result: ${match.result} \nCreated: ${new Date(match.created).toLocaleString()}`}
+              secondary={`Result: ${constructResultMessage(match)} \nCreated: ${new Date(match.created).toLocaleString()}`}
             />
           </ListItem>
         ))}
@@ -78,8 +78,14 @@ const MatchList = () => {
     const player1 = `${match.players[0].name} (${match.players[0].selectedIcon})`;
     const player2 = `${match.players[1].name} (${match.players[1].selectedIcon})`;
 
-    return `${player1} vs ${player2} Result: ${match.result === 'user1' ? match.players[0].name : match.result === 'user2' ? match.players[1].name : match.result}`;
+    return `${player1} vs ${player2}`;
   };
+
+  const constructResultMessage = (match) => {
+    return `${match.result === 'user1' ? 
+    'The winner is ' + match.players[0].name : match.result === 'user2' ? 
+    'The winner is ' + match.players[1].name : match.result}!!`;
+  }
 
   const renderPagination = () => {
     const totalMatches = sortMatches().length;

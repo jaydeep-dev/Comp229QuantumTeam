@@ -68,8 +68,8 @@ const AddMatch = () => {
 
     useEffect(() => {
         // Enable the button only when both users are selected
-        setButtonDisabled(!selectedUser2);
-    }, [selectedUser2]);
+        setButtonDisabled(!selectedUser2 || !selectedIcon);
+    }, [selectedUser2, selectedIcon]);
 
     const handleAddMatch = async () => {
         const user2 = users.find((user) => user.name === selectedUser2);
