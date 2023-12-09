@@ -68,20 +68,24 @@ const AddMatch = () => {
 
     useEffect(() => {
         // Enable the button only when both users are selected
-        setButtonDisabled(!selectedUser2);
-    }, [selectedUser2]);
+        setButtonDisabled(!selectedUser2 || !selectedIcon);
+    }, [selectedUser2, selectedIcon]);
 
     const handleAddMatch = async () => {
         const user2 = users.find((user) => user.name === selectedUser2);
 
         if (user2) {
             // Determine the winner in a rock-paper-scissors match
-            const winner = determineWinner(selectedIcon, getRandomRPS());
+            var user2Selection = getRandomRPS();
+            const winner = determineWinner(selectedIcon, user2Selection);
 
             // Create the match
             const matchResult = `${loggedInUser} vs ${selectedUser2}`;
             const matchData = { 
-                players: [loggedInUser, selectedUser2], 
+                players: [
+                    { name: loggedInUser, selectedIcon: selectedIcon },
+                    { name: selectedUser2, selectedIcon: user2Selection },
+                  ], 
                 result: winner, 
                 created: new Date(),
                 updated: new Date(),
@@ -141,7 +145,7 @@ const AddMatch = () => {
     }
 
     const determineWinner = (rps1, rps2) => {
-        //console.log("the value on determineWinner is: " + rps1);
+        console.log( rps1, rps2);
         // logic to determine the winner in a rock-paper-scissors match
         // Return 'user1' if user1 wins, 'user2' if user2 wins, or 'draw' if it's a draw [..Jorge]
         if (
@@ -178,6 +182,8 @@ const AddMatch = () => {
     return (
         <Card className={classes.card}>
             <CardContent>
+            
+
                 <Typography variant="h6" gutterBottom>
                     Add a Match
                 </Typography>

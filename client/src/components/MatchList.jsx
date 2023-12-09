@@ -65,14 +65,27 @@ const MatchList = () => {
         {paginatedMatches.map((match) => (
           <ListItem key={match._id}>
             <ListItemText
-              primary={`${match.players[0]} vs ${match.players[1]}`}
-              secondary={`Result: ${match.result} \nCreated: ${new Date(match.created).toLocaleString()}`}
+              primary={constructMatchMessage(match)}
+              secondary={`Result: ${constructResultMessage(match)} \nCreated: ${new Date(match.created).toLocaleString()}`}
             />
           </ListItem>
         ))}
       </List>
     );
   };
+
+  const constructMatchMessage = (match) => {
+    const player1 = `${match.players[0].name} (${match.players[0].selectedIcon})`;
+    const player2 = `${match.players[1].name} (${match.players[1].selectedIcon})`;
+
+    return `${player1} vs ${player2}`;
+  };
+
+  const constructResultMessage = (match) => {
+    return `${match.result === 'user1' ? 
+    'The winner is ' + match.players[0].name : match.result === 'user2' ? 
+    'The winner is ' + match.players[1].name : match.result}!!`;
+  }
 
   const renderPagination = () => {
     const totalMatches = sortMatches().length;
