@@ -120,9 +120,9 @@ const MatchList = () =>
       let result = await removeMatch(matchToRemove);
       console.log("Result: " + JSON.stringify(result));
 
-      if (result.hasOwnProperty("deletedCount")) 
+      if (result.hasOwnProperty("_id")) 
       {
-        if (result.deletedCount > 0)
+        if (result._id)
         {
           alert("Match Deleted!");
         }
@@ -134,7 +134,7 @@ const MatchList = () =>
     }
     catch (exception)
     {
-      console.log(err);
+      console.log(exception);
     }
   }
 

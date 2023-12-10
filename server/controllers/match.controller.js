@@ -40,9 +40,9 @@ const remove = async (req, res) =>
 {
     try
     {
-        let matchId = req.profile;
-        let deletedMatch = await Match.deleteOne({matchId});
-        
+        let matchId = req.body._id;
+        let deletedMatch = await Match.findByIdAndDelete(matchId);
+
         return res.status(200).json(deletedMatch);
     }
     catch (err)
