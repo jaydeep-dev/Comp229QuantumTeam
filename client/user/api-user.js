@@ -1,5 +1,7 @@
-const create = async (user) => {
-  try {
+const create = async (user) =>
+{
+  try
+  {
     let response = await fetch("/api/users/", {
       method: "POST",
       headers: {
@@ -13,12 +15,15 @@ const create = async (user) => {
       }),
     });
     return await response.json();
-  } catch (err) {
+  } catch (err)
+  {
     console.log(err);
   }
 };
-const verifyEmail = async (email) => {
-  try {
+const verifyEmail = async (email) =>
+{
+  try
+  {
     let response = await fetch("/api/verifyEmail", {
       method: "POST",
       headers: {
@@ -28,12 +33,15 @@ const verifyEmail = async (email) => {
       body: JSON.stringify(email),
     });
     return await response.json();
-  } catch (err) {
+  } catch (err)
+  {
     console.log(err);
   }
 };
-const list = async (signal) => {
-  try {
+const list = async (signal) =>
+{
+  try
+  {
     let response = await fetch("/api/users/", {
       method: "GET",
 
@@ -41,12 +49,15 @@ const list = async (signal) => {
     });
     console.log(response);
     return await response.json();
-  } catch (err) {
+  } catch (err)
+  {
     console.log(err);
   }
 };
-const read = async (params, credentials, signal) => {
-  try {
+const read = async (params, credentials, signal) =>
+{
+  try
+  {
     let response = await fetch("/api/users/" + params.userId, {
       method: "GET",
       signal: signal,
@@ -57,12 +68,15 @@ const read = async (params, credentials, signal) => {
       },
     });
     return await response.json();
-  } catch (err) {
+  } catch (err)
+  {
     console.log(err);
   }
 };
-const update = async (params, credentials, user) => {
-  try {
+const update = async (params, credentials, user) =>
+{
+  try
+  {
     let response = await fetch("/api/users/" + params.userId, {
       method: "PUT",
       headers: {
@@ -73,12 +87,15 @@ const update = async (params, credentials, user) => {
       body: JSON.stringify(user),
     });
     return await response.json();
-  } catch (err) {
+  } catch (err)
+  {
     console.log(err);
   }
 };
-const remove = async (params, credentials) => {
-  try {
+const remove = async (params, credentials) =>
+{
+  try
+  {
     let response = await fetch("/api/users/" + params.userId, {
       method: "DELETE",
       headers: {
@@ -88,7 +105,8 @@ const remove = async (params, credentials) => {
       },
     });
     return await response.json();
-  } catch (err) {
+  } catch (err)
+  {
     console.log(err);
   }
 };

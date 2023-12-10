@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditProfile({ match }) {
+export default function EditProfile({ match })
+{
   const classes = useStyles();
   const { userId } = useParams();
   const [values, setValues] = useState({
@@ -51,7 +52,8 @@ export default function EditProfile({ match }) {
   });
   const jwt = auth.isAuthenticated();
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
@@ -61,19 +63,24 @@ export default function EditProfile({ match }) {
       },
       { t: jwt.token },
       signal
-    ).then((data) => {
-      if (data && data.error) {
+    ).then((data) =>
+    {
+      if (data && data.error)
+      {
         setValues({ ...values, error: data.error });
-      } else {
+      } else
+      {
         setValues({ ...values, name: data.name, email: data.email });
       }
     });
-    return function cleanup() {
+    return function cleanup()
+    {
       abortController.abort();
     };
   }, [userId]);
 
-  const clickSubmit = () => {
+  const clickSubmit = () =>
+  {
     const user = {
       name: values.name || undefined,
       email: values.email || undefined,
@@ -87,19 +94,24 @@ export default function EditProfile({ match }) {
         t: jwt.token,
       },
       user
-    ).then((data) => {
-      if (data && data.error) {
+    ).then((data) =>
+    {
+      if (data && data.error)
+      {
         setValues({ ...values, error: data.error });
-      } else {
+      } else
+      {
         setValues({ ...values, userId: data._id, redirectToProfile: true });
       }
     });
   };
-  const handleChange = (name) => (event) => {
+  const handleChange = (name) => (event) =>
+  {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  if (values.redirectToProfile) {
+  if (values.redirectToProfile)
+  {
     return <Navigate to={"/user/" + values.userId} />;
   }
   return (

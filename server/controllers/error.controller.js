@@ -2,10 +2,12 @@
 // Import any necessary modules or dependencies
 // Example: const SomeModule = require('some-module');
 // Define your controller function
-function handleError(req, res) {
+function handleError(req, res)
+{
   // Your code to handle the error
 }
-function getErrorMessage(errMsg) {
+function getErrorMessage(errMsg)
+{
   console.log(errMsg);
 }
 
