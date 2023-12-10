@@ -19,7 +19,7 @@ const create = async (user) => {
 };
 const verifyEmail = async (email) => {
   try {
-    let response = await fetch("/api/users/", {
+    let response = await fetch("/api/verifyEmail", {
       method: "POST",
       headers: {
         Accept: "application/json",
