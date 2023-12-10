@@ -122,8 +122,14 @@ const AddMatch = () =>
             //await updateEloRank(loserData);
 
             alert(`Match Created: ${matchResult}\nWinner: ${winner === 'draw' ? 'It\'s a draw!' : winnerPlayer}`);
+            refreshPage();
         }
     };
+
+    const refreshPage = () =>
+    {
+        window.location.reload(false);
+    }
 
     const createMatch = async (jsonMatchData) =>
     {

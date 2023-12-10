@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
+import
+{
   Card,
   CardContent,
   Typography,
@@ -20,6 +21,12 @@ import {
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { create } from "./api-user";
+
+let enableSignUpButton = false;
+let isPasswordValid = false;
+let isEmailValid = false;
+let validateEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+let validatePassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -46,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Signup() {
+export default function Signup()
+{
   const classes = useStyles();
 
   const [values, setValues] = useState({
@@ -58,20 +66,37 @@ export default function Signup() {
 
   const [open, setOpen] = useState(false);
 
-  const handleChange = (name) => (event) => {
+  const handleChange = (name) => (event) =>
+  {
+    if (name === "email")
+    {
+      isEmailValid = validateEmail.test(event.target.value);
+    }
+    else if (name === "password")
+    {
+      isPasswordValid = validatePassword.test(event.target.value);
+    }
+
+    console.log("Email: " + isEmailValid);
+    console.log("Password: " + isPasswordValid);
+
+    enableSignUpButton = (isEmailValid && isPasswordValid);
     setValues({ ...values, [name]: event.target.value });
   };
 
   // this was also giving weird warnings, a solution on the web
   // was to check first if it was being called first [..Jorge]
-  const handleClose = () => {
-    if (handleClose) {
-      handleClose();
-    }
+  const handleClose = () =>
+  {
+    // if (handleClose)
+    // {
+    //   handleClose();
+    // }
     setOpen(false);
   };
 
-  const clickSubmit = () => {
+  const clickSubmit = () =>
+  {
     const user = {
       name: values.name || undefined,
       email: values.email || undefined,
@@ -80,10 +105,20 @@ export default function Signup() {
       elo: values.elo || undefined,
     };
 
-    create(user).then((data) => {
-      if (data.error) {
+    
+
+
+    enableSignUpButton = false;
+    isPasswordValid = false;
+    isEmailValid = false;
+
+    create(user).then((data) =>
+    {
+      if (data.error)
+      {
         setValues({ ...values, error: data.error });
-      } else {
+      } else
+      {
         setOpen(true);
       }
     });
@@ -128,6 +163,7 @@ export default function Signup() {
             color="primary"
             variant="contained"
             onClick={clickSubmit}
+            disabled={!enableSignUpButton}
             className={classes.submit}
           >
             Submit

@@ -131,11 +131,18 @@ const MatchList = () =>
       {
         alert("Match couldn't be deleted!");
       }
+
+      refreshPage();
     }
     catch (exception)
     {
       console.log(exception);
     }
+  }
+
+  const refreshPage = () =>
+  {
+    window.location.reload(false);
   }
 
   const renderPagination = () =>
