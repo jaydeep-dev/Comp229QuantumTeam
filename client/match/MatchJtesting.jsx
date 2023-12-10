@@ -220,7 +220,7 @@ const AddMatch = () =>
 
                 {/* UserList component for selecting the second user */}
                 <FormControl className={classes.formControl}>
-                    <InputLabel>Oponent</InputLabel>
+                    <InputLabel>Opponent</InputLabel>
                     <Select
                         value={selectedUser2}
                         onChange={(e) => setSelectedUser2(e.target.value)}

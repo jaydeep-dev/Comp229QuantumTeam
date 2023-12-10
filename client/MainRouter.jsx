@@ -12,7 +12,6 @@ import Profile from "./user/Profile.jsx";
 import PrivateRoute from "./lib/PrivateRoute.jsx";
 import EditProfile from "./user/EditProfile.jsx";
 import Menu from "./core/Menu";
-import AddItem from "./item/AddItem.jsx";
 import AddMatch from "./match/MatchJtesting.jsx";
 // import Ranking from "./ranking/Ranking.jsx"
 //import AddMatch from"./match/Addmatch.jsx";
@@ -37,7 +36,6 @@ function MainRouter()
           }
         />
         <Route path="/user/:userId" element={<Profile />} />
-        <Route path="/addItem" element={<AddItem />} />
         <Route path="/addMatch" element={<AddMatch />} />
       </Routes>
     </div>

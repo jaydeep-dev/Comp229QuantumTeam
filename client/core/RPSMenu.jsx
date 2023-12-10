@@ -60,11 +60,6 @@ export default function RPSMenu() {
               </Link>
             </span>)
           }
-
-
-          <Link to="/rank">
-            <Button style={isActive(location, '/rank')}>Rank</Button>
-          </Link>
         </div>
         {auth.isAuthenticated() && (
           <span>
