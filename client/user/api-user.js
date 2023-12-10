@@ -1,5 +1,3 @@
-import { json } from "body-parser";
-
 const create = async (user) => {
   try {
     let response = await fetch("/api/users/", {
