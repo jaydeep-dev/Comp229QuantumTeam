@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
+import
+{
     Card,
     CardContent,
     Typography,
@@ -39,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AddMatch = () => {
+const AddMatch = () =>
+{
     const classes = useStyles();
     const [selectedUser2, setSelectedUser2] = useState('');
     const [users, setUsers] = useState([]);
@@ -47,18 +49,23 @@ const AddMatch = () => {
     const [loggedInUser, setLoggedInUser] = useState('');
     const [selectedIcon, setSelectedIcon] = useState(null);
 
-    const handleIconSelection = (icon) => {
+    const handleIconSelection = (icon) =>
+    {
         setSelectedIcon(icon);
     };
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         const currentUser = auth.isAuthenticated() ? auth.isAuthenticated().user : null;
-        const fetchUsers = async () => {
-            try {
+        const fetchUsers = async () =>
+        {
+            try
+            {
                 const userList = await list();
                 setUsers(userList);
                 setLoggedInUser(currentUser.name);
-            } catch (error) {
+            } catch (error)
+            {
                 console.error('Error fetching user list:', error);
             }
         };
@@ -66,39 +73,47 @@ const AddMatch = () => {
         fetchUsers();
     }, []);
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         // Enable the button only when both users are selected
         setButtonDisabled(!selectedUser2 || !selectedIcon);
     }, [selectedUser2, selectedIcon]);
 
-    const handleAddMatch = async () => {
+    const handleAddMatch = async () =>
+    {
+        const currentUser = auth.isAuthenticated() ? auth.isAuthenticated().user : null;
         const user2 = users.find((user) => user.name === selectedUser2);
 
-        if (user2) {
+        if (user2)
+        {
             // Determine the winner in a rock-paper-scissors match
             var user2Selection = getRandomRPS();
             const winner = determineWinner(selectedIcon, user2Selection);
 
             // Create the match
             const matchResult = `${loggedInUser} vs ${selectedUser2}`;
-            const matchData = { 
+            const matchData = {
                 players: [
-                    { name: loggedInUser, selectedIcon: selectedIcon },
-                    { name: selectedUser2, selectedIcon: user2Selection },
-                  ], 
-                result: winner, 
+                    { name: loggedInUser, id: currentUser._id, selectedIcon: selectedIcon },
+                    { name: selectedUser2, id: user2._id, selectedIcon: user2Selection },
+                ],
+                result: winner,
                 created: new Date(),
                 updated: new Date(),
             };
             //console.log('Sending matchData to createMatch:', matchData);
-            try {
+            try
+            {
                 const createdMatch = await createMatch(matchData);
                 console.log('Created Match:', createdMatch);
                 // Handle success if needed
-              } catch (error) {
+            } catch (error)
+            {
                 console.error('Error creating match:', error.message);
                 // Handle error if needed
-              }
+            }
+
+            let winnerPlayer = winner === "user1" ? loggedInUser : selectedUser2;
 
             // Update Elo in the rank collection
             const winnerData = { userName: loggedInUser, elo: user2.elo + 10, createdAt: new Date() };
@@ -106,12 +121,14 @@ const AddMatch = () => {
             //await updateEloRank(winnerData);
             //await updateEloRank(loserData);
 
-            alert(`Match Created: ${matchResult}\nWinner: ${winner === 'draw' ? 'It\'s a draw!' : winner}`);
+            alert(`Match Created: ${matchResult}\nWinner: ${winner === 'draw' ? 'It\'s a draw!' : winnerPlayer}`);
         }
     };
 
-    const createMatch = async (jsonMatchData) => {
-        try {
+    const createMatch = async (jsonMatchData) =>
+    {
+        try
+        {
             //console.log('jsonMatchData:', jsonMatchData);
             const response = await fetch('/api/match', {
                 method: 'POST',
@@ -123,20 +140,23 @@ const AddMatch = () => {
                 body: JSON.stringify(jsonMatchData),
             });
 
-            if (!response.ok) {
+            if (!response.ok)
+            {
                 // Handle the error if the response status is not OK
                 throw new Error(`Failed to create match: ${response.statusText}`);
             }
 
             const match = await response.json();
             return match; // Return the created match (optional)
-        } catch (error) {
+        } catch (error)
+        {
             console.error('Error creating match:', error.message);
             throw error; // Rethrow the error to handle it elsewhere if needed
         }
     };
 
-    const getRandomRPS = () => {
+    const getRandomRPS = () =>
+    {
         const randomChoiceNumber = Math.floor(Math.random() * 3); // Generates a random number between 0 and 2
 
         // Map the random number to rock, paper, or scissors
@@ -144,28 +164,33 @@ const AddMatch = () => {
         return choices[randomChoiceNumber];
     }
 
-    const determineWinner = (rps1, rps2) => {
-        console.log( rps1, rps2);
+    const determineWinner = (rps1, rps2) =>
+    {
+        console.log(rps1, rps2);
         // logic to determine the winner in a rock-paper-scissors match
         // Return 'user1' if user1 wins, 'user2' if user2 wins, or 'draw' if it's a draw [..Jorge]
         if (
             (rps1 === 'rock' && rps2 === 'scissors') ||
             (rps1 === 'paper' && rps2 === 'rock') ||
             (rps1 === 'scissors' && rps2 === 'paper')
-        ) {
+        )
+        {
             return 'user1';
         } else if (
             (rps1 === 'scissors' && rps2 === 'rock') ||
             (rps1 === 'rock' && rps2 === 'paper') ||
             (rps1 === 'paper' && rps2 === 'scissors')
-        ) {
+        )
+        {
             return 'user2';
-        } else {
+        } else
+        {
             return 'draw';
         }
     };
 
-    const updateELO = async (winner, loser) => {
+    const updateELO = async (winner, loser) =>
+    {
         // logic to update ELO values for the winner and loser
         // ELO rating system tried something with the wikipedia page 
         // https://en.wikipedia.org/wiki/Elo_rating_system [..Jorge]
@@ -182,7 +207,7 @@ const AddMatch = () => {
     return (
         <Card className={classes.card}>
             <CardContent>
-            
+
 
                 <Typography variant="h6" gutterBottom>
                     Add a Match
@@ -244,9 +269,9 @@ const AddMatch = () => {
                 </Button>
                 <MatchList />
             </CardContent>
-            
+
         </Card>
-        
+
     );
 };
 

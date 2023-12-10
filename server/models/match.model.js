@@ -5,6 +5,10 @@ const PlayerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  id: {
+    type: String,
+    required: true,
+  },
   selectedIcon: {
     type: String,
     enum: ["rock", "paper", "scissors"],
@@ -14,9 +18,10 @@ const PlayerSchema = new mongoose.Schema({
 
 const MatchSchema = new mongoose.Schema({
   players: [PlayerSchema],
-  result: { 
-    type: String, 
-    required: true },
+  result: {
+    type: String,
+    required: true
+  },
   created: {
     type: Date,
     default: Date.now,

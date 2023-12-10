@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
+import
+{
   Card,
   CardContent,
   Typography,
@@ -8,10 +9,13 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Button,
 } from '@material-ui/core';
-import { listMatches } from './../../match/api-match';
+import { listMatches, removeMatch } from './../../match/api-match';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import auth from '../../lib/auth-helper';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -27,19 +31,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MatchList = () => {
+const MatchList = () =>
+{
   const classes = useStyles();
   const [matches, setMatches] = useState([]);
   // with this I pretend to put pages
   const [page, setPage] = useState(1);
   const matchesPerPage = 5;
 
-  useEffect(() => {
-    const fetchMatches = async () => {
-      try {
+  useEffect(() =>
+  {
+    const fetchMatches = async () =>
+    {
+      try
+      {
         const matchList = await listMatches();
         setMatches(matchList);
-      } catch (error) {
+      } catch (error)
+      {
         console.error('Error fetching match list:', error);
       }
     };
@@ -47,15 +56,18 @@ const MatchList = () => {
     fetchMatches();
   }, []);
 
-  const sortMatches = () => {
+  const sortMatches = () =>
+  {
     return matches.sort((a, b) => new Date(b.created) - new Date(a.created));
   };
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (newPage) =>
+  {
     setPage(newPage);
   };
 
-  const renderMatches = () => {
+  const renderMatches = () =>
+  {
     const startIndex = (page - 1) * matchesPerPage;
     const endIndex = startIndex + matchesPerPage;
     const paginatedMatches = sortMatches().slice(startIndex, endIndex);
@@ -68,26 +80,66 @@ const MatchList = () => {
               primary={constructMatchMessage(match)}
               secondary={`Result: ${constructResultMessage(match)} \nCreated: ${new Date(match.created).toLocaleString()}`}
             />
+            {
+              (console.log(match) || true) &&
+              auth.isAuthenticated() &&
+              (auth.isAuthenticated().user._id === match.players[0].id || auth.isAuthenticated().user._id === match.players[1].id) &&
+              (<Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={() => deleteMatch(match)}
+              >
+                <DeleteIcon />
+              </Button>)}
           </ListItem>
         ))}
       </List>
     );
   };
 
-  const constructMatchMessage = (match) => {
+  const constructMatchMessage = (match) =>
+  {
     const player1 = `${match.players[0].name} (${match.players[0].selectedIcon})`;
     const player2 = `${match.players[1].name} (${match.players[1].selectedIcon})`;
 
     return `${player1} vs ${player2}`;
   };
 
-  const constructResultMessage = (match) => {
-    return `${match.result === 'user1' ? 
-    'The winner is ' + match.players[0].name : match.result === 'user2' ? 
-    'The winner is ' + match.players[1].name : match.result}!!`;
+  const constructResultMessage = (match) =>
+  {
+    return `${match.result === 'user1' ?
+      'The winner is ' + match.players[0].name : match.result === 'user2' ?
+        'The winner is ' + match.players[1].name : match.result}!!`;
   }
 
-  const renderPagination = () => {
+  const deleteMatch = async (matchToRemove) =>
+  {
+    try
+    {
+      let result = await removeMatch(matchToRemove);
+      console.log("Result: " + JSON.stringify(result));
+
+      if (result.hasOwnProperty("deletedCount")) 
+      {
+        if (result.deletedCount > 0)
+        {
+          alert("Match Deleted!");
+        }
+      }
+      else
+      {
+        alert("Match couldn't be deleted!");
+      }
+    }
+    catch (exception)
+    {
+      console.log(err);
+    }
+  }
+
+  const renderPagination = () =>
+  {
     const totalMatches = sortMatches().length;
     const totalPages = Math.ceil(totalMatches / matchesPerPage);
 
