@@ -113,21 +113,6 @@ export default function Signup() {
             onChange={handleChange("email")}
             margin="normal"
           />
-          <FormControl className={classes.textField}>
-            <InputLabel htmlFor="rps">RPS</InputLabel>
-            <Select
-              value={values.rps}
-              onChange={handleChange("rps")}
-              inputProps={{
-                name: "rps",
-                id: "rps",
-              }}
-            >
-              <MenuItem value={"Rock"}>Rock</MenuItem>
-              <MenuItem value={"Paper"}>Paper</MenuItem>
-              <MenuItem value={"Scissors"}>Scissors</MenuItem>
-            </Select>
-          </FormControl>
           <TextField
             id="password"
             label="Password"
