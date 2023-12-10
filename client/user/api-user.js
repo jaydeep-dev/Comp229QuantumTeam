@@ -1,3 +1,5 @@
+import { json } from "body-parser";
+
 const create = async (user) => {
   try {
     let response = await fetch("/api/users/", {
@@ -11,6 +13,21 @@ const create = async (user) => {
         rps: user.rps || "errorValue",
         elo: user.elo || 1200,
       }),
+    });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+const verifyEmail = async (email) => {
+  try {
+    let response = await fetch("/api/users/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(email),
     });
     return await response.json();
   } catch (err) {
