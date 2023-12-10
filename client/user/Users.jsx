@@ -45,20 +45,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Users() {
+export default function Users()
+{
   const [users, setUsers] = useState([]);
-  useEffect(() => {
+  useEffect(() =>
+  {
     const abortController = new AbortController();
     const signal = abortController.signal;
-    list(signal).then((data) => {
-      if (data && data.error) {
+    list(signal).then((data) =>
+    {
+      if (data && data.error)
+      {
         console.log(data.error);
-      } else {
+      } else
+      {
         console.log(data);
         setUsers(data);
       }
     });
-    return function cleanup() {
+    return function cleanup()
+    {
       abortController.abort();
     };
   }, []);
@@ -70,7 +76,8 @@ export default function Users() {
         All Users
       </Typography>
       <List dense>
-        {users.map((item, i) => {
+        {users.map((item, i) =>
+        {
           return (
             <Link component={RouterLink} to={"/user/" + item._id} key={i}>
               <ListItem button>

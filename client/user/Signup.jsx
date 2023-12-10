@@ -21,6 +21,7 @@ import
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { create } from "./api-user";
+import { verifyEmail } from "./api-user";
 
 let enableSignUpButton = false;
 let isPasswordValid = false;
@@ -95,7 +96,7 @@ export default function Signup()
     setOpen(false);
   };
 
-  const clickSubmit = () =>
+  const clickSubmit = async () =>
   {
     const user = {
       name: values.name || undefined,
@@ -105,8 +106,17 @@ export default function Signup()
       elo: values.elo || undefined,
     };
 
-    
+    let emailJson = { email: values.email };
+    let emailVerificationResult = await verifyEmail(emailJson);
 
+    if (emailVerificationResult.hasOwnProperty("email"))
+    {
+      if (values.email === emailVerificationResult.email)
+      {
+        alert("Email already exists!");
+        return;
+      }
+    }
 
     enableSignUpButton = false;
     isPasswordValid = false;

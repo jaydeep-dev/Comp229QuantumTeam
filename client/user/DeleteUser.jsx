@@ -12,34 +12,42 @@ import auth from "../lib/auth-helper.js";
 import { remove } from "./api-user.js";
 import { Navigate } from "react-router-dom";
 
-export default function DeleteUser(props) {
+export default function DeleteUser(props)
+{
   const [open, setOpen] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
   const jwt = auth.isAuthenticated();
-  const clickButton = () => {
+  const clickButton = () =>
+  {
     setOpen(true);
   };
-  const deleteAccount = () => {
+  const deleteAccount = () =>
+  {
     remove(
       {
         userId: props.userId,
       },
       { t: jwt.token }
-    ).then((data) => {
-      if (data && data.error) {
+    ).then((data) =>
+    {
+      if (data && data.error)
+      {
         console.log(data.error);
-      } else {
+      } else
+      {
         auth.clearJWT(() => console.log("deleted"));
         setRedirect(true);
       }
     });
   };
-  const handleRequestClose = () => {
+  const handleRequestClose = () =>
+  {
     setOpen(false);
   };
 
-  if (redirect) {
+  if (redirect)
+  {
     return <Navigate to="/" />;
   }
   return (

@@ -1,32 +1,40 @@
 import User from "../models/user.model.js";
 import extend from "lodash/extend.js";
 import errorHandler from "./error.controller.js";
-const create = async (req, res) => {
+const create = async (req, res) =>
+{
   console.log(req.body);
   const user = new User(req.body);
-  try {
+  try
+  {
     await user.save();
     return res.status(200).json({
       message: "Successfully signed up!",
     });
-  } catch (err) {
+  } catch (err)
+  {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });
   }
 };
-const list = async (req, res) => {
-  try {
+const list = async (req, res) =>
+{
+  try
+  {
     let users = await User.find().select("name email 	updated created");
     return res.json(users);
-  } catch (err) {
+  } catch (err)
+  {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });
   }
 };
-const userByID = async (req, res, next, id) => {
-  try {
+const userByID = async (req, res, next, id) =>
+{
+  try
+  {
     let user = await User.findById(id);
     if (!user)
       return res.status(400).json({
@@ -34,13 +42,15 @@ const userByID = async (req, res, next, id) => {
       });
     req.profile = user;
     next();
-  } catch (err) {
+  } catch (err)
+  {
     return res.status(400).json({
       error: "Could not retrieve user",
     });
   }
 };
-const read = (req, res) => {
+const read = (req, res) =>
+{
   req.profile.hashed_password = undefined;
   req.profile.salt = undefined;
   return res.json({
@@ -50,8 +60,10 @@ const read = (req, res) => {
   });
 };
 
-const update = async (req, res) => {
-  try {
+const update = async (req, res) =>
+{
+  try
+  {
     let user = req.profile;
     user = extend(user, req.body);
     user.updated = Date.now();
@@ -59,37 +71,44 @@ const update = async (req, res) => {
     user.hashed_password = undefined;
     user.salt = undefined;
     return res.json(user);
-  } catch (err) {
+  } catch (err)
+  {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });
   }
 };
-const remove = async (req, res) => {
-  try {
+const remove = async (req, res) =>
+{
+  try
+  {
     let user = req.profile;
     let deletedUser = await user.deleteOne();
     deletedUser.hashed_password = undefined;
     deletedUser.salt = undefined;
     return res.json(deletedUser);
-  } catch (err) {
+  } catch (err)
+  {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });
   }
 };
 
-const verifyEmail = async (req, res) => {
-  try {
+const verifyEmail = async (req, res) =>
+{
+  try
+  {
     let user = req.body;
     console.log(user);
-    let hasUser = await User.findOne({"email": {'$regex': `^${user.email}$`, $options: 'i'}});
+    let hasUser = await User.findOne({ "email": { '$regex': `^${user.email}$`, $options: 'i' } });
     console.log(hasUser);
     return res.status(200).json(hasUser);
-  } catch (err) {
+  } catch (err)
+  {
     return res.status(200).json({
       error: errorHandler.getErrorMessage(err),
-    })    
+    })
   }
 }
 

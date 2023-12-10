@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Profile({ match }) {
+export default function Profile({ match })
+{
   const location = useLocation();
   const classes = useStyles();
   const [user, setUser] = useState({});
@@ -41,7 +42,8 @@ export default function Profile({ match }) {
   const jwt = auth.isAuthenticated();
   const { userId } = useParams();
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
@@ -51,25 +53,31 @@ export default function Profile({ match }) {
       },
       { t: jwt.token },
       signal
-    ).then((data) => {
-      if (data && data.error) {
+    ).then((data) =>
+    {
+      if (data && data.error)
+      {
         setRedirectToSignin(true);
-      } else {
+      } else
+      {
         setUser(data);
       }
     });
 
-    return function cleanup() {
+    return function cleanup()
+    {
       abortController.abort();
     };
   }, [userId]);
 
-  if (redirectToSignin) {
+  if (redirectToSignin)
+  {
     return (
       <Navigate to="/signin" state={{ from: location.pathname }} replace />
     );
   }
-  if (auth.isAuthenticated()) {
+  if (auth.isAuthenticated())
+  {
     console.log(auth.isAuthenticated().user._id);
     console.log(user._id);
   }
