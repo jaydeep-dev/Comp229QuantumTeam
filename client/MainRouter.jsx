@@ -37,7 +37,6 @@ function MainRouter()
         />
         <Route path="/api/user/:userId" element={<Profile />} />
         <Route path="/api/addMatch" element={<AddMatch />} />
-        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );
