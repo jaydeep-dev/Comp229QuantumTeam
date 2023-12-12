@@ -15,10 +15,10 @@ mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${config.mongoUri}`)
 })
 
-app.listen(config.port, (err) => {
+app.listen(config.backendPort, (err) => {
   if (err) {
     console.log(err)
   }
-  console.info('Server started on port %s.', config.port)
+  console.info('Server started on port %s.', config.backendPort)
 })
 

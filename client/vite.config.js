@@ -20,12 +20,13 @@ export default defineConfig({
 */
 
 import dotenv from 'dotenv';
+import config from '../config/config.js';
 dotenv.config();
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const { PORT = 3000 } = process.env;
+const PORT = config.backendPort;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -34,15 +35,15 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: `http://localhost:${PORT}`,
+        target: `http://127.0.0.1:${PORT}`,
         changeOrigin: true,
       },
       '/auth': {
-        target: `http://localhost:${PORT}`,
+        target: `http://127.0.0.1:${PORT}`,
         changeOrigin: true,
       },
-     
     },
+    port: config.frontendPort,
   },
   build: {
     outDir: '../server/dist/app',
