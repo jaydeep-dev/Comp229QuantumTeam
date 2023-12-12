@@ -10,6 +10,7 @@ import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import matchRoutes from './routes/match.routes.js';
 import rankRoutes from './routes/rank.route.js';
+import indexpage from '../client/index.html'
 import path from "path";
 
 const app = express();
@@ -21,6 +22,13 @@ app.use("/", userRoutes);
 app.use("/", authRoutes);
 app.use("/", matchRoutes);
 app.use("/", rankRoutes);
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

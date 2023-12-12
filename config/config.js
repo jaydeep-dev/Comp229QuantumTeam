@@ -1,5 +1,6 @@
 const config = {
   env: process.env.NODE_ENV || "development",
+
   frontendPort: process.env.FRONTEND_PORT || 3000,
   backendPort: process.env.BACKEND_PORT || 5000,
   jwtSecret: process.env.JWT_SECRET || "YOUR_secret_key",

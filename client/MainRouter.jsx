@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./core/Home";
 //Added the home for Our Project:
 import RPSHome from "./core/RPSHome";
@@ -24,9 +24,9 @@ function MainRouter()
 
       <Routes>
         <Route path="/" element={<RPSHome />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/api/users" element={<Users />} />
+        <Route path="/api/signup" element={<Signup />} />
+        <Route path="/api/signin" element={<Signin />} />
         <Route
           path="/user/edit/:userId"
           element={
@@ -35,8 +35,8 @@ function MainRouter()
             </PrivateRoute>
           }
         />
-        <Route path="/user/:userId" element={<Profile />} />
-        <Route path="/addMatch" element={<AddMatch />} />
+        <Route path="/api/user/:userId" element={<Profile />} />
+        <Route path="/api/addMatch" element={<AddMatch />} />
       </Routes>
     </div>
   );
