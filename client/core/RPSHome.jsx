@@ -117,16 +117,6 @@ export default function RPSHome() {
             <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
               Create a match!</p>
           </Button>
-          <Button
-            component={Link}
-            to="/rank"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          ><img src={rankIcon} style={{ width: 100, margin: 6, }} />
-            <p style={{ fontWeight: 'bold', fontFamily: 'Helvetica, Arial, sans-serif', textAlign: 'center', margin: '10px' }}>
-              See the Rank</p>
-          </Button>
         </Square>
         <Square style={{
           background: `url(${blueBackgroundImage})`,
