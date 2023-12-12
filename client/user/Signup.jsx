@@ -109,7 +109,7 @@ export default function Signup()
     let emailJson = { email: values.email };
     let emailVerificationResult = await verifyEmail(emailJson);
 
-    if (emailVerificationResult.hasOwnProperty("email"))
+    if (emailVerificationResult !== null && emailVerificationResult.hasOwnProperty("email"))
     {
       if (values.email === emailVerificationResult.email)
       {
